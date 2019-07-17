@@ -1,5 +1,6 @@
 package com.tw.apistackbase.repository;
 
+import com.tw.apistackbase.model.CaseInfo;
 import com.tw.apistackbase.model.CriminalCase;
 import com.tw.apistackbase.model.Procuratorate;
 import com.tw.apistackbase.model.Prosecutor;
@@ -40,6 +41,12 @@ public class ProsecutorRepositoryTest {
         Assertions.assertThrows(DataIntegrityViolationException.class,()->
                 prosecutorRepository.saveAndFlush(prosecutor)
         );
+    }
+
+    @Test
+    public void should_return_prosecutor_when_query_prosecutor_by_id(){
+        Prosecutor prosecutor = prosecutorRepository.findById(1).get();
+        assertNotEquals(null, prosecutor);
     }
 
 }
