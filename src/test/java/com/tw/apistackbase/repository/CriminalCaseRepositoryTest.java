@@ -32,11 +32,17 @@ public class CriminalCaseRepositoryTest {
     }
 
     @Test
-    public void should_return_null_when_save_case_some_attribute_are_null(){
+    public void should_return_error_when_save_case_some_attribute_are_null(){
         CriminalCase criminalCase = new CriminalCase();
         Assertions.assertThrows(DataIntegrityViolationException.class,()->
                 criminalCaseRepository.saveAndFlush(criminalCase)
         );
+    }
+
+    @Test
+    public void should_return_case_when_query_case_by_id(){
+        CriminalCase criminalCase = criminalCaseRepository.findById(1).get();
+        assertNotEquals(null, criminalCase);
     }
 
 }
