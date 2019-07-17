@@ -41,4 +41,10 @@ public class ProcuratorateRepositoryTest {
         );
     }
 
+    @Test
+    public void should_return_procuratorate_when_query_procuratorates_by_id(){
+        Procuratorate procuratorate = procuratorateRepository.findById(1).get();
+        assertNotEquals(null, procuratorate);
+    }
+
 }
