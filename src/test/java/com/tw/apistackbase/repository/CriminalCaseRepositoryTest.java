@@ -25,9 +25,10 @@ public class CriminalCaseRepositoryTest {
     @Before
     public void setUp() throws Exception{
         List<CriminalCase> criminalCases = new ArrayList<>();
+        criminalCases.add(new CriminalCase("caseTwo",1530310725));
+        criminalCases.add(new CriminalCase("caseThree",1530413265));
         criminalCases.add(new CriminalCase("caseOne",1531320725));
-        criminalCases.add(new CriminalCase("caseTwo",1530320725));
-        criminalCases.add(new CriminalCase("caseThree",1530313265));
+        criminalCases.add(new CriminalCase("caseFour",1532320725));
         criminalCaseRepository.saveAll(criminalCases);
     }
 
@@ -44,5 +45,13 @@ public class CriminalCaseRepositoryTest {
         CriminalCase criminalCase = criminalCaseRepository.findById(1).get();
         assertNotEquals(null, criminalCase);
     }
+
+    @Test
+    public void should_return_case_when_query_case_order_by_incidentTime_desc(){
+        List<CriminalCase> criminalCase = criminalCaseRepository.findAllByOrderByIncidentTimeDesc();
+        assertTrue(criminalCase.get(0).getIncidentTime() > criminalCase.get(1).getIncidentTime());
+    }
+
+
 
 }
