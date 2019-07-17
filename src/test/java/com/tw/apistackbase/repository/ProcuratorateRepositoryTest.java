@@ -30,16 +30,16 @@ public class ProcuratorateRepositoryTest {
     @Before
     public void setUp() throws Exception{
         List<Procuratorate> procuratorates = new ArrayList<>();
-        procuratorates.add(new Procuratorate("proTwo"));
-        procuratorates.add(new Procuratorate("proThree"));
-        procuratorates.add(new Procuratorate("proOne"));
-        procuratorates.add(new Procuratorate("proFour"));
+        procuratorates.add(new Procuratorate("proTwo", null));
+        procuratorates.add(new Procuratorate("proThree", null));
+        procuratorates.add(new Procuratorate("proOne", null));
+        procuratorates.add(new Procuratorate("proFour", null));
         procuratorateRepository.saveAll(procuratorates);
     }
 
     @Test
     public void should_return_error_when_save_case_the_same_name(){
-        Procuratorate procuratorate = new Procuratorate("proTwo");
+        Procuratorate procuratorate = new Procuratorate("proTwo", null);
         Assertions.assertThrows(DataIntegrityViolationException.class,()->
                 procuratorateRepository.saveAndFlush(procuratorate)
         );

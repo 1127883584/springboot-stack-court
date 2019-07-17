@@ -27,10 +27,10 @@ public class CriminalCaseRepositoryTest {
     @Before
     public void setUp() throws Exception{
         List<CriminalCase> criminalCases = new ArrayList<>();
-        criminalCases.add(new CriminalCase("caseTwo",1530310725, null,new Procuratorate("proFour")));
-        criminalCases.add(new CriminalCase("caseThree",1530413265, null,new Procuratorate("proFive")));
-        criminalCases.add(new CriminalCase("caseOne",1531320725, null,new Procuratorate("proSix")));
-        criminalCases.add(new CriminalCase("caseOne",1532320725, null,new Procuratorate("proSeven")));
+        criminalCases.add(new CriminalCase("caseTwo",1530310725, null,new Procuratorate("proFour", null)));
+        criminalCases.add(new CriminalCase("caseThree",1530413265, null,new Procuratorate("proFive", null)));
+        criminalCases.add(new CriminalCase("caseOne",1531320725, null,new Procuratorate("proSix", null)));
+        criminalCases.add(new CriminalCase("caseOne",1532320725, null,new Procuratorate("proSeven", null)));
         criminalCaseRepository.saveAll(criminalCases);
     }
 

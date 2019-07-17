@@ -25,6 +25,9 @@ public class ProsecutorRepositoryTest {
     @Autowired
     private ProsecutorRepository prosecutorRepository;
 
+    @Autowired
+    private ProcuratorateRepository procuratorateRepository;
+
     @Before
     public void setUp() throws Exception{
         List<Prosecutor> prosecutors = new ArrayList<>();
@@ -47,6 +50,18 @@ public class ProsecutorRepositoryTest {
     public void should_return_prosecutor_when_query_prosecutor_by_id(){
         Prosecutor prosecutor = prosecutorRepository.findById(1).get();
         assertNotEquals(null, prosecutor);
+    }
+
+    @Test
+    public void should_return_prosecutors_when_query_prosecutors_by_procuratorate_by_id(){
+        List<Prosecutor> prosecutors = new ArrayList<>();
+        prosecutors.add(new Prosecutor("prosecutorOne"));
+        prosecutors.add(new Prosecutor("prosecutorTwo"));
+        prosecutors.add(new Prosecutor("prosecutorThree"));
+        Procuratorate procuratorate = new Procuratorate("proEight", prosecutors);
+        procuratorateRepository.save(procuratorate);
+        Procuratorate procuratorateNew = procuratorateRepository.findAll().get(0);
+        assertEquals(prosecutors, procuratorateNew.getProsecutors());
     }
 
 }

@@ -38,10 +38,10 @@ public class CaseInfoRepositoryTest {
         caseInfoRepository.saveAll(caseInfos);
 
         List<CriminalCase> criminalCases = new ArrayList<>();
-        criminalCases.add(new CriminalCase("caseTwo",1530310725, null, new Procuratorate("proSix")));
-        criminalCases.add(new CriminalCase("caseThree",1530413265, null,new Procuratorate("proFour")));
-        criminalCases.add(new CriminalCase("caseOne",1531320725, null,new Procuratorate("proSeven")));
-        criminalCases.add(new CriminalCase("caseOne",1532320725, null,new Procuratorate("proTwo")));
+        criminalCases.add(new CriminalCase("caseTwo",1530310725, null, new Procuratorate("proSix", null)));
+        criminalCases.add(new CriminalCase("caseThree",1530413265, null,new Procuratorate("proFour", null)));
+        criminalCases.add(new CriminalCase("caseOne",1531320725, null,new Procuratorate("proSeven", null)));
+        criminalCases.add(new CriminalCase("caseOne",1532320725, null,new Procuratorate("proTwo", null)));
         criminalCaseRepository.saveAll(criminalCases);
     }
 
@@ -62,7 +62,7 @@ public class CaseInfoRepositoryTest {
     @Test
     public void should_return_corresponding_case_info_when_query_case_info_by_case(){
         CaseInfo caseInfo = new CaseInfo("caseFourSubjective","caseFourObjective");
-        CriminalCase criminalCase = new CriminalCase("caseFour",1531310725, null,new Procuratorate("proFive"));
+        CriminalCase criminalCase = new CriminalCase("caseFour",1531310725, null,new Procuratorate("proFive", null));
         criminalCase.setCaseInfo(caseInfo);
         criminalCaseRepository.save(criminalCase);
         List<CriminalCase> criminalCases = criminalCaseRepository.findAll();
