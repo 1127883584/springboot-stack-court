@@ -28,7 +28,7 @@ public class CriminalCaseRepositoryTest {
         criminalCases.add(new CriminalCase("caseTwo",1530310725));
         criminalCases.add(new CriminalCase("caseThree",1530413265));
         criminalCases.add(new CriminalCase("caseOne",1531320725));
-        criminalCases.add(new CriminalCase("caseFour",1532320725));
+        criminalCases.add(new CriminalCase("caseOne",1532320725));
         criminalCaseRepository.saveAll(criminalCases);
     }
 
@@ -52,6 +52,11 @@ public class CriminalCaseRepositoryTest {
         assertTrue(criminalCase.get(0).getIncidentTime() > criminalCase.get(1).getIncidentTime());
     }
 
+    @Test
+    public void should_return_cases_when_query_case_by_name(){
+        List<CriminalCase> criminalCase = criminalCaseRepository.findAllByName("caseOne");
+        assertEquals(2, criminalCase.size());
+    }
 
 
 }
