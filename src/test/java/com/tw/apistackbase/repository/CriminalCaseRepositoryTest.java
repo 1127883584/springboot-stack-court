@@ -1,6 +1,7 @@
 package com.tw.apistackbase.repository;
 
 import com.tw.apistackbase.model.CriminalCase;
+import com.tw.apistackbase.model.Procuratorate;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
@@ -10,6 +11,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.validation.ConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,17 +27,17 @@ public class CriminalCaseRepositoryTest {
     @Before
     public void setUp() throws Exception{
         List<CriminalCase> criminalCases = new ArrayList<>();
-        criminalCases.add(new CriminalCase("caseTwo",1530310725, null));
-        criminalCases.add(new CriminalCase("caseThree",1530413265, null));
-        criminalCases.add(new CriminalCase("caseOne",1531320725, null));
-        criminalCases.add(new CriminalCase("caseOne",1532320725, null));
+        criminalCases.add(new CriminalCase("caseTwo",1530310725, null,new Procuratorate("proFour")));
+        criminalCases.add(new CriminalCase("caseThree",1530413265, null,new Procuratorate("proFive")));
+        criminalCases.add(new CriminalCase("caseOne",1531320725, null,new Procuratorate("proSix")));
+        criminalCases.add(new CriminalCase("caseOne",1532320725, null,new Procuratorate("proSeven")));
         criminalCaseRepository.saveAll(criminalCases);
     }
 
     @Test
     public void should_return_error_when_save_case_some_attribute_are_null(){
         CriminalCase criminalCase = new CriminalCase();
-        Assertions.assertThrows(DataIntegrityViolationException.class,()->
+        Assertions.assertThrows(ConstraintViolationException.class,()->
                 criminalCaseRepository.saveAndFlush(criminalCase)
         );
     }
@@ -60,7 +62,7 @@ public class CriminalCaseRepositoryTest {
 
     @Test
     public void should_return_cases_after_delete_when_delete_case_by_id(){
-        criminalCaseRepository.deleteById(2);
+        criminalCaseRepository.deleteById(1);
         assertEquals(3, criminalCaseRepository.findAll().size());
     }
 

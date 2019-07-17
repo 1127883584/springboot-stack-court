@@ -11,6 +11,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.validation.ConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +23,9 @@ public class ProcuratorateRepositoryTest {
 
     @Autowired
     private ProcuratorateRepository procuratorateRepository;
+
+    @Autowired
+    private CriminalCaseRepository criminalCaseRepository;
 
     @Before
     public void setUp() throws Exception{
@@ -45,6 +49,14 @@ public class ProcuratorateRepositoryTest {
     public void should_return_procuratorate_when_query_procuratorates_by_id(){
         Procuratorate procuratorate = procuratorateRepository.findById(1).get();
         assertNotEquals(null, procuratorate);
+    }
+
+    @Test
+    public void should_return_error_when_save_case_with_null_procuratorate(){
+        CriminalCase criminalCase = new CriminalCase("caseFour",1531310725, null,null);
+        Assertions.assertThrows(ConstraintViolationException.class,()->
+                criminalCaseRepository.saveAndFlush(criminalCase)
+        );
     }
 
 }
