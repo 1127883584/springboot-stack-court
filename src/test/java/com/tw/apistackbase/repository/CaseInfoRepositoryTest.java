@@ -1,6 +1,7 @@
 package com.tw.apistackbase.repository;
 
 import com.tw.apistackbase.model.CaseInfo;
+import com.tw.apistackbase.model.CriminalCase;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
@@ -23,6 +24,9 @@ public class CaseInfoRepositoryTest {
     @Autowired
     private CaseInfoRepository caseInfoRepository;
 
+    @Autowired
+    private CriminalCaseRepository criminalCaseRepository;
+
     @Before
     public void setUp() {
         List<CaseInfo> caseInfos = new ArrayList<>();
@@ -31,6 +35,13 @@ public class CaseInfoRepositoryTest {
         caseInfos.add(new CaseInfo("caseOneSubjective","caseTwoObjective"));
         caseInfos.add(new CaseInfo("caseOneSubjective","caseTwoObjective"));
         caseInfoRepository.saveAll(caseInfos);
+
+        List<CriminalCase> criminalCases = new ArrayList<>();
+        criminalCases.add(new CriminalCase("caseTwo",1530310725, null));
+        criminalCases.add(new CriminalCase("caseThree",1530413265, null));
+        criminalCases.add(new CriminalCase("caseOne",1531320725, null));
+        criminalCases.add(new CriminalCase("caseOne",1532320725, null));
+        criminalCaseRepository.saveAll(criminalCases);
     }
 
     @Test
@@ -42,8 +53,19 @@ public class CaseInfoRepositoryTest {
     }
 
     @Test
-    public void should_return_case_when_query_case_by_id(){
+    public void should_return_case_info_when_query_case_info_by_id(){
         CaseInfo caseInfo = caseInfoRepository.findById(1).get();
         assertNotEquals(null, caseInfo);
+    }
+
+    @Test
+    public void should_return_corresponding_case_info_when_query_case_info_by_case(){
+        CaseInfo caseInfo = new CaseInfo("caseFourSubjective","caseFourObjective");
+        CriminalCase criminalCase = new CriminalCase("caseFour",1531310725, null);
+        criminalCase.setCaseInfo(caseInfo);
+        criminalCaseRepository.save(criminalCase);
+        List<CriminalCase> criminalCases = criminalCaseRepository.findAll();
+        CriminalCase criminalCaseNew = criminalCases.get(criminalCases.size() - 1);
+        assertEquals(caseInfo, criminalCaseNew.getCaseInfo());
     }
 }

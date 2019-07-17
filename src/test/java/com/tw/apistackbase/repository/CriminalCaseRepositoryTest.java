@@ -8,7 +8,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.data.annotation.Transient;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
@@ -26,10 +25,10 @@ public class CriminalCaseRepositoryTest {
     @Before
     public void setUp() throws Exception{
         List<CriminalCase> criminalCases = new ArrayList<>();
-        criminalCases.add(new CriminalCase("caseTwo",1530310725));
-        criminalCases.add(new CriminalCase("caseThree",1530413265));
-        criminalCases.add(new CriminalCase("caseOne",1531320725));
-        criminalCases.add(new CriminalCase("caseOne",1532320725));
+        criminalCases.add(new CriminalCase("caseTwo",1530310725, null));
+        criminalCases.add(new CriminalCase("caseThree",1530413265, null));
+        criminalCases.add(new CriminalCase("caseOne",1531320725, null));
+        criminalCases.add(new CriminalCase("caseOne",1532320725, null));
         criminalCaseRepository.saveAll(criminalCases);
     }
 
