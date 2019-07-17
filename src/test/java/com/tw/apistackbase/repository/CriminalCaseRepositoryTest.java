@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.annotation.Transient;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
@@ -58,5 +59,10 @@ public class CriminalCaseRepositoryTest {
         assertEquals(2, criminalCase.size());
     }
 
+    @Test
+    public void should_return_cases_after_delete_when_delete_case_by_id(){
+        criminalCaseRepository.deleteById(2);
+        assertEquals(3, criminalCaseRepository.findAll().size());
+    }
 
 }
