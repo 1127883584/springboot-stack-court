@@ -34,10 +34,16 @@ public class CaseInfoRepositoryTest {
     }
 
     @Test
-    public void should_return_error_when_save_case_some_attribute_are_null(){
+    public void should_return_error_when_save_case_info_some_attribute_are_null(){
         CaseInfo caseInfo = new CaseInfo();
         Assertions.assertThrows(DataIntegrityViolationException.class,()->
                 caseInfoRepository.saveAndFlush(caseInfo)
         );
+    }
+
+    @Test
+    public void should_return_case_when_query_case_by_id(){
+        CaseInfo caseInfo = caseInfoRepository.findById(1).get();
+        assertNotEquals(null, caseInfo);
     }
 }
